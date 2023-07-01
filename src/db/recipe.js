@@ -1,4 +1,4 @@
-const recipes = [
+const recipesData = [
   {
     name: "Chicken Tikka Masala",
     cuisine: "Indian",
@@ -48,4 +48,4 @@ const recipes = [
   },
 ];
 
-export default recipes;
+export default recipesData;
