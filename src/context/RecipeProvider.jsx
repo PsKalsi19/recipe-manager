@@ -1,17 +1,23 @@
 /* eslint-disable react/prop-types */
-import { createContext, useReducer } from "react";
+import { createContext, useEffect, useReducer } from "react";
 import recipesData from "../db/recipe";
+import { getRecipe, saveRecipe } from "../utility/localstorage-utility";
+
+const RECIPE_ACTIONS = {
+  SET_RECIPE: "set_recipe",
+  UPDATE_RECIPE: "update_recipe",
+};
 
 const initialRecipeState = {
-  recipes: recipesData,
+  recipes: [],
   searchText: "",
   filterBy: "name",
 };
 
 const recipeReducer = (state, { type, payload }) => {
   switch (type) {
-    case "":
-      return state;
+    case RECIPE_ACTIONS.SET_RECIPE:
+      return { ...state, recipes: payload };
 
     default:
       return state;
@@ -23,6 +29,20 @@ const RecipeProvider = ({ children }) => {
     recipeReducer,
     initialRecipeState
   );
+
+  const initializeData = () => {
+    const allRecipes = getRecipe();
+    if (allRecipes && allRecipes.length > 0) {
+      recipeDispatch({ type: RECIPE_ACTIONS.SET_RECIPE, payload: allRecipes });
+    } else {
+      recipeDispatch({ type: RECIPE_ACTIONS.SET_RECIPE, payload: recipesData });
+      saveRecipe(recipesData);
+    }
+  };
+
+  useEffect(() => {
+    initializeData();
+  }, []);
   return (
     <RecipeContext.Provider
       value={{
