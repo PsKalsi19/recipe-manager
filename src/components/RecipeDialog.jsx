@@ -29,7 +29,17 @@ const RecipeDialog = () => {
     e.preventDefault();
     recipeDispatch({
       type: RECIPE_ACTIONS.SET_RECIPE,
-      payload: [...recipeState.recipes, formState],
+      payload: [
+        ...recipeState.recipes,
+        {
+          ...formState,
+          id: recipeState.recipes.length + 1,
+          image:
+            image === ""
+              ? `https://source.unsplash.com/random/900x700/?food`
+              : image,
+        },
+      ],
     });
     saveRecipe([...recipeState.recipes, formState]);
     setFormState(initialForm);
@@ -176,7 +186,6 @@ const RecipeDialog = () => {
                         value={image}
                         onChange={handleOnChange}
                         className="shadow-sm  border  text-sm rounded-lg  focus:border-gray-500 block w-full p-2.5 bg-gray-900 border-gray-600 placeholder-gray-400 text-white shadow-sm-light"
-                        required
                       />
                     </div>
 

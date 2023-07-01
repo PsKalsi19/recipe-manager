@@ -14,7 +14,6 @@ const Home = () => {
     if (searchText === "") return recipes;
     if (filterBy === "ingredients") {
       return recipes.filter((recipe) =>{
-        debugger
         return recipe.ingredients.some((ingredient) =>
           ingredient.toLowerCase().includes(searchText.trim().toLowerCase())
         )}

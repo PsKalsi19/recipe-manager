@@ -19,10 +19,16 @@ const recipeReducer = (state, { type, payload }) => {
       return { ...state, searchText: payload };
     case RECIPE_ACTIONS.SET_FILTER:
       return { ...state, filterBy: payload };
+    case RECIPE_ACTIONS.REMOVE_RECIPE:
+      return {
+        ...state,
+        recipes: state.recipes.filter(({ id }) => id !== payload),
+      };
     default:
       return state;
   }
 };
+
 export const RecipeContext = createContext();
 const RecipeProvider = ({ children }) => {
   const [recipeState, recipeDispatch] = useReducer(
@@ -45,6 +51,11 @@ const RecipeProvider = ({ children }) => {
     }
   };
 
+  const handleDelete = (id) => {
+    recipeDispatch({ type: RECIPE_ACTIONS.REMOVE_RECIPE, payload: id });
+    saveRecipe(recipeState.recipes);
+  };
+
   useEffect(() => {
     initializeData();
   }, []);
@@ -55,6 +66,7 @@ const RecipeProvider = ({ children }) => {
         recipeDispatch,
         isDialogOpen,
         setIsDialogOpen,
+        handleDelete,
       }}
     >
       {children}

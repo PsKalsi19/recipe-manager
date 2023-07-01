@@ -3,7 +3,8 @@ const RECIPE_ACTIONS = {
     UPDATE_RECIPE: "update_recipe",
     ADD_RECIPE:"add_recipe",
     SET_SEARCH:"set_search",
-    SET_FILTER:"set_filter"
+    SET_FILTER:"set_filter",
+    REMOVE_RECIPE:'remove_recipe'
   };
 
   export default RECIPE_ACTIONS

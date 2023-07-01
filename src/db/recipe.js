@@ -1,5 +1,6 @@
 const recipesData = [
   {
+    id: 1,
     name: "Chicken Tikka Masala",
     cuisine: "Indian",
     image:
@@ -26,6 +27,7 @@ const recipesData = [
       "1. Heat olive oil in a large skillet over medium heat.\n2. Add chopped onion, minced garlic, and grated ginger to the skillet. Sauté until the onion becomes translucent.\n3. Add the chicken pieces to the skillet and cook until they are lightly browned.\n4. In a separate bowl, mix together the ground cumin, ground coriander, turmeric powder, garam masala, and cayenne pepper.\n5. Sprinkle the spice mixture over the chicken and stir well to coat the chicken evenly.\n6. Pour in the tomato sauce and coconut milk. Stir to combine.\n7. Reduce the heat to low, cover the skillet, and simmer for about 20 minutes, or until the chicken is cooked through and the flavors are well combined.\n8. Stir in the heavy cream and season with salt and pepper to taste.\n9. Simmer for an additional 5 minutes.\n10. Serve the chicken tikka masala with rice or naan bread.",
   },
   {
+    id: 2,
     name: "Kung Pao Chicken",
     cuisine: "Chinese",
     image:
