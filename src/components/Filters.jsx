@@ -30,7 +30,7 @@ const Filters = () => {
         {
             filtersType.map(filter=>
             <div key={filter} className="flex items-center pl-4 border  rounded border-gray-700">
-            <input id={filter} type="radio" value={filter} name="filter-radio" className="w-4 h-4 text-blue-600  ring-offset-gray-800 focus:ring-2  border-gray-600" />
+            <input id={filter} type="radio" value={filter} name="filter-radio" className="w-4 h-4 text-indigo-600  ring-offset-gray-800 focus:ring-2  border-gray-600" />
             <label htmlFor={filter} className="w-full capitalize py-4 ml-2 text-sm font-medium  text-gray-300">{filter}</label>
         </div>)
         }
