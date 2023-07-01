@@ -6,9 +6,24 @@ import RecipeCard from "../components/RecipeCard";
 
 const Home = () => {
   const {
-    recipeState: { recipes },
-    recipeDispatch,
+    recipeState: { recipes, searchText, filterBy },
+    setIsDialogOpen,
   } = useContext(RecipeContext);
+
+  const filtersBy = () => {
+    if (searchText === "") return recipes;
+    if (filterBy === "ingredients") {
+      return recipes.filter((recipe) =>{
+        debugger
+        return recipe.ingredients.some((ingredient) =>
+          ingredient.toLowerCase().includes(searchText.trim().toLowerCase())
+        )}
+      );
+    }
+    return recipes.filter((recipe) =>
+      recipe[filterBy].toLowerCase().includes(searchText.toLowerCase())
+    );
+  };
   return (
     <div className="px-16 my-32">
       <Filters />
@@ -18,11 +33,17 @@ const Home = () => {
       <div className="grid grid-cols-4 items-start gap-8">
         {recipes &&
           recipes.length > 0 &&
-          recipes.map((ele) => <RecipeCard key={ele} recipe={ele} />)}
+          filtersBy().map((ele, index) => (
+            <RecipeCard key={index} recipe={ele} />
+          ))}
 
         <div className="flex justify-center items-center align-middle flex-col">
-
-          <PlusCircleIcon className="h-20 my-auto w-20 text-gray-500" />
+          <PlusCircleIcon
+            onClick={() =>
+              setIsDialogOpen((prevVals) => ({ ...prevVals, openDialog: true }))
+            }
+            className="h-20 cursor-pointer hover:text-gray-700 my-auto w-20 text-gray-500"
+          />
         </div>
       </div>
     </div>

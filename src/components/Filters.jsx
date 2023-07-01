@@ -1,5 +1,17 @@
+import { useContext } from "react";
+import { RecipeContext } from './../context/RecipeProvider';
+import RECIPE_ACTIONS from "../utility/RecipeActions";
+
 const Filters = () => {
   const filtersType = ["name", "ingredients", "cuisine"];
+  const {recipeState, recipeDispatch}=useContext(RecipeContext)
+  const {searchText,filterBy}=recipeState
+  const handleOnSearch=(e)=>{
+    recipeDispatch({type:RECIPE_ACTIONS.SET_SEARCH,payload:e.target.value})
+  }
+  const handleRadioChange=(e)=>{
+    recipeDispatch({type:RECIPE_ACTIONS.SET_FILTER,payload:e.target.value})
+  }
   return (
     <div className="bg-gray-800">
       <div className="relative grid grid-cols-4">
@@ -21,16 +33,18 @@ const Filters = () => {
             </div>
             <input
               type="search"
-              id="simple-search"
+              onChange={handleOnSearch}
+              value={searchText}
+              id="search"
               className="border  text-gray-100 text-lg  block w-full pl-10 py-5  bg-gray-700 border-gray-600 placeholder-gray-400"
               placeholder="Search"
             />
         </div>
 
         {
-            filtersType.map(filter=>
-            <div key={filter} className="flex items-center pl-4 border  rounded border-gray-700">
-            <input id={filter} type="radio" value={filter} name="filter-radio" className="w-4 h-4 text-indigo-600  ring-offset-gray-800 focus:ring-2  border-gray-600" />
+            filtersType.map((filter,index)=>
+            <div key={index} className="flex items-center pl-4 border  rounded border-gray-700">
+            <input id={filter} onChange={handleRadioChange} checked={filterBy===filter} type="radio" value={filter} name="filter-radio" className="w-4 h-4 text-indigo-600  ring-offset-gray-800 focus:ring-2  border-gray-600" />
             <label htmlFor={filter} className="w-full capitalize py-4 ml-2 text-sm font-medium  text-gray-300">{filter}</label>
         </div>)
         }

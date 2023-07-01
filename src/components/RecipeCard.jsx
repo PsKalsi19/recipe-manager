@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 
 const RecipeCard = ({ recipe }) => {
-  const { name, cuisine,ingredients, image, description } = recipe;
+  const { name, cuisine, image, description } = recipe;
   return (
     <div className="max-w-sm  border  rounded-lg shadow bg-gray-800 border-gray-700">
       <img className="rounded-t-lg h-60 w-full" src={image} alt={name} />

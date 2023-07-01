@@ -1,12 +1,9 @@
 /* eslint-disable react/prop-types */
-import { createContext, useEffect, useReducer } from "react";
+import { createContext, useEffect, useReducer, useState } from "react";
 import recipesData from "../db/recipe";
 import { getRecipe, saveRecipe } from "../utility/localstorage-utility";
 
-const RECIPE_ACTIONS = {
-  SET_RECIPE: "set_recipe",
-  UPDATE_RECIPE: "update_recipe",
-};
+import RECIPE_ACTIONS from "../utility/RecipeActions";
 
 const initialRecipeState = {
   recipes: [],
@@ -18,7 +15,10 @@ const recipeReducer = (state, { type, payload }) => {
   switch (type) {
     case RECIPE_ACTIONS.SET_RECIPE:
       return { ...state, recipes: payload };
-
+    case RECIPE_ACTIONS.SET_SEARCH:
+      return { ...state, searchText: payload };
+    case RECIPE_ACTIONS.SET_FILTER:
+      return { ...state, filterBy: payload };
     default:
       return state;
   }
@@ -29,6 +29,11 @@ const RecipeProvider = ({ children }) => {
     recipeReducer,
     initialRecipeState
   );
+
+  let [isDialogOpen, setIsDialogOpen] = useState({
+    openDialog: false,
+    selectedRecipe: {},
+  });
 
   const initializeData = () => {
     const allRecipes = getRecipe();
@@ -48,6 +53,8 @@ const RecipeProvider = ({ children }) => {
       value={{
         recipeState,
         recipeDispatch,
+        isDialogOpen,
+        setIsDialogOpen,
       }}
     >
       {children}
